@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5"
+	xmlns="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5"
+	version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:annotation>
+		<xs:documentation>Baseline: 1.0.0</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="ErrorBaseStruct" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+				Base type for representing fault information.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Origin" type="PartyStruct">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">
+						Unique identification of application that
+						reports the error.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Timestamp" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">
+						Timestamp when the error occurred.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AuthenticationFaultStruct">
+		<xs:annotation>
+			<xs:documentation xml:lang="en-us">
+				Signals that the sending application is denied access to the
+				target system.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ErrorBaseStruct">
+				<xs:sequence>
+					<xs:element name="MessageID" type="UniqueId15Type">
+						<xs:annotation>
+							<xs:documentation xml:lang="en-us">
+								Identification of the message (operation) that caused
+								the error.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AuthorizationFaultStruct">
+		<xs:annotation>
+			<xs:documentation xml:lang="en-us">
+				Signals insufficient permission to access information or perform
+				an operation.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ErrorBaseStruct">
+				<xs:sequence>
+					<xs:element name="MessageID" type="UniqueId15Type">
+						<xs:annotation>
+							<xs:documentation xml:lang="en-us">
+								Identification of the message (operation) that caused
+								the error.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ValidationFaultStruct">
+		<xs:annotation>
+			<xs:documentation xml:lang="en-us">
+				Signals XML Schema Definition (XSD) validation of the request
+				was not succesful. Each distinct validation error results in a
+				Detail element containing a description of the issue.
+
+				The sending application MUST be corrected before the operation
+				is executed again.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ErrorBaseStruct">
+				<xs:sequence>
+					<xs:element name="Detail" maxOccurs="unbounded" type="xs:string">
+						<xs:annotation>
+							<xs:documentation xml:lang="en-us">
+								Detailed information on a validation error.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="FluxSyncFaultStruct">
+		<xs:annotation>
+			<xs:documentation xml:lang="en-us">
+				Signals that an operation is not valid for the current state of
+				the flux.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ErrorBaseStruct">
+				<xs:sequence>
+					<xs:element name="MessageID" type="UniqueId15Type">
+						<xs:annotation>
+							<xs:documentation xml:lang="en-us">
+								Identification of the message (operation) that caused
+								the error.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="SystemFaultStruct">
+		<xs:annotation>
+			<xs:documentation xml:lang="en-us">
+				Notifies the sending application that the message with the specified
+				MessageID could not be processed.
+
+				The sending application MUST resend the message.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ErrorBaseStruct">
+				<xs:sequence>
+					<xs:element name="MessageID" type="UniqueId15Type" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="en-us">
+								Identification of the message (operation) that caused
+								the error.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Code">
+						<xs:annotation>
+							<xs:documentation xml:lang="en-us">
+								Code identifying the error. This code is only guaranteed
+								to be unique for the application that reports the error.
+							</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:pattern value="[A-Z0-9]{6}" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="BlockStruct">
+		<xs:annotation>
+			<xs:documentation>
+				Provides information on a given chunck within a bulk operation.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SequenceID" type="UniqueId36Type">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">
+						Unique identification of a bulk sequence.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SequenceNumber">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">
+						Sequence number of the block, one based.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:integer" />
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="IsLast" type="xs:boolean" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+					Indicates whether the current block is the
+					last block of the bulk operation.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="ApplHeaderStruct">
+		<xs:annotation>
+			<xs:documentation xml:lang="nl">
+				Bericht meta-informatie.
+			</xs:documentation>
+			<xs:documentation xml:lang="fr">
+				Meta-info message.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Origin" type="PartyStruct">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Identificatie van de afzender.
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Numéro de l'expéditeur.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Destination" type="PartyStruct">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Identificatie van de bestemmeling.
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Identification destinataire.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MessageID" type="UniqueId15Type">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">
+						Unique identification of the message exchange.
+						For POW or RR, the receiving node MUST echo the
+						MessageID of the request in the response.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Timestamp" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">
+						Timestamp when the message is sent.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UserID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						User ID van effectieve gebruiker, indien van
+						toepassing en noodzakelijk.
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						User ID de l'utilisateur effectif, si
+						d'application et nécessaire.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="11" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RequestInitiatorID" type="ApplicationIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Vast nummer toegekend door RSVZ om toegang te
+						krijgen tot een applicatie binnen RSVZ.
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Numéro fixe accordé par RSVZ.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="FluxDescriptorStruct">
+		<xs:annotation>
+			<xs:documentation xml:lang="nl">
+				Wordt gebruikt voor correlatie met een flux van
+				berichten. Dient gegenereerd te worden door de
+				eerste afzender, dit is de initiator van de
+				flux, en vervolgens gekopieerd door alle
+				deelnemers aan de flux.
+			</xs:documentation>
+			<xs:documentation xml:lang="fr">
+				Il est utilisé pour corréler avec un flux de
+				messages. Doit etre générer par le premier
+				expéditeur, ceci c' est le initiator du flux, et
+				ensuite copié par tous participants au flux.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Initiator" type="PartyStruct">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">
+						Party that started the flux.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FluxID" type="UniqueId36Type">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">
+						Unique identification (within initiator) of a flux instance.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FluxDefinition">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Name" type="UniqueId36Type" />
+						<xs:element name="Version" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="UniqueId15Type">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z0-9]{1,15}"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="UniqueId36Type">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z0-9_.]{1,36}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="PartyStruct">
+		<xs:sequence>
+			<xs:element name="Organization">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">
+						Identifies NISSE or a SIF, or another
+						organization.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[A-Za-z0-9]{3,3}" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Application" type="ApplicationIdType">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">
+						Identification of the Application, unique within
+						and defined by the Organization.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="ApplicationIdType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en-us">
+				Identification of an Application.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="11" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

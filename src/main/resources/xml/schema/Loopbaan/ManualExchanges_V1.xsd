@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/ManualExchanges/V1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ct="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/CommonTypes/V1" targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/ManualExchanges/V1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Baseline: 1.4.1</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/CommonTypes/V1" schemaLocation="./CommonTypes_V1.xsd"/>
+	<xs:simpleType name="SIFCodeType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{3}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:group name="InitialLoadData">
+		<xs:annotation>
+			<xs:documentation>Structure containing initial load data</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="InitialLoadNr" type="xs:positiveInteger">
+				<xs:annotation>
+					<xs:documentation>Initial loading attempt number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileNr" type="xs:positiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Set of careers to load. Only for manual initial load.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="CreateAllCareers">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="SIFCode" type="SIFCodeType">
+					<xs:annotation>
+						<xs:documentation>Data originator SIF code</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:group ref="InitialLoadData"/>
+				<xs:element name="Careers">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="IndividualRights" type="ct:IndividualRightsStruct" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ReportCareersCreation">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="ct:ReportDataStruct">
+					<xs:sequence>
+						<xs:element name="SIFCode" type="SIFCodeType">
+							<xs:annotation>
+								<xs:documentation>Data originator SIF code</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="InitialLoadNr" type="xs:positiveInteger"/>
+						<xs:element name="FileNr" type="xs:positiveInteger" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

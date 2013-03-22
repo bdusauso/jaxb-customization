@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/CommonTypes/V1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b2b="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/CommonTypes/V1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Baseline: 1.4.1</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" schemaLocation="../MetaInfo/MetaInfo_V5.xsd"/>
+	<xs:simpleType name="NisseLoadExceptionReasonCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SSINChanged">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Warning: SSIN value changed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OldData">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Warning: More recent career data aleady available</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UnknownPerson"/>
+			<xs:enumeration value="InvalidBeginDate"/>
+			<xs:enumeration value="InvalidPeriod"/>
+			<xs:enumeration value="InvalidPayDate"/>
+			<xs:enumeration value="InvalidCreationTime"/>
+			<xs:enumeration value="InvalidBirthDate"/>
+			<xs:enumeration value="PeriodOverlap"/>
+			<xs:enumeration value="LatePeriod">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Error: Period end date is in the future</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AffiliationMismatch">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Error: Period mismatch between known and asserted affiliations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NoAffiliation">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Error: No Affiliation to the SIF found for that person</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UnknownPeriod">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Error: Period to delete does not exist yet in the database</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IncompleteCareer">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Error: Received career does not include all preexisting periods</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="InvalidPeriodKind">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Error: Invalid value for PeriodKind according to functional context</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DuplicateRights">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Error: Individual rights already found for that person in current upload</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IdentificationMismatch">
+      <xs:annotation>
+        <xs:documentation>Error: Identification in upload not the same as in the refresh request</xs:documentation>
+      </xs:annotation>
+    </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+	<xs:simpleType name="ExceptionSeverityType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Error"/>
+			<xs:enumeration value="Warning"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BulkLoadReturnCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OK"/>
+			<xs:enumeration value="NotAllowed">
+				<xs:annotation>
+					<xs:documentation>Operation not allowed in current context</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AlreadyProcessed">
+				<xs:annotation>
+					<xs:documentation>Old value of InitialLoadNr</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TooManyErrors">
+				<xs:annotation>
+					<xs:documentation>Rejected career data greater than threshold value. Nothing loaded</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SomeErrors">
+				<xs:annotation>
+					<xs:documentation>Rejected career data smaller than threshold. Valid data loaded.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SSINType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{11}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PeriodKindType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DeleteExistingPeriod" id="Code_00">
+				<xs:annotation>
+					<xs:documentation>Used to delete an existing period</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PaidPeriod" id="Code_01">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">Cotisations payées</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Bijdragen betaald</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AdditionalPeriod" id="Code_02">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl-be">Bijdragen voor een hoofdbezigheid betaald voor een bijberoep</xs:documentation>
+					<xs:documentation xml:lang="fr-be">Bijdragen voor een hoofdbezigheid betaald voor een bijberoep</xs:documentation>
+					<xs:documentation>Additional Activity</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PursuedPeriodType" id="Code_03">
+				<xs:annotation>
+					<xs:documentation>Pursued insurance</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Voortgezette verzekering</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SpecPursuedPeriodType" id="Code_04">
+				<xs:annotation>
+					<xs:documentation>Special Pursued insurance</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Voortgezette verzekering - landbouwsaneringsfonds of faillissementsverzekering tussen 1/7/1995 en 30/6/1997</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LifeInsuranceAllotment" id="Code_05">
+				<xs:annotation>
+					<xs:documentation>Allotment of Life insurance </xs:documentation>
+					<xs:documentation xml:lang="nl-be">Solidariteitsbijdrage betaald in een periode van aanwending v/e levensverzekeringscontract</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BuildingAllotment" id="Code_06">
+				<xs:annotation>
+					<xs:documentation>Allotment of Building</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Solidariteitsbijdrage betaald in een periode van aanwending van een onroerend goed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SickPeriodType" id="Code_07">
+				<xs:annotation>
+					<xs:documentation>Sickness</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Gelijkstelling ziekte - invaliditeit</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MilitaryServicePeriodType" id="Code_08">
+				<xs:annotation>
+					<xs:documentation>Military service</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Gelijkstelling militaire dienst</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PreventiveCustody" id="Code_09">
+				<xs:annotation>
+					<xs:documentation>Preventive custody</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Gelijkstelling voorlopige hechtenis</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="StudyPeriodType" id="Code_10">
+				<xs:annotation>
+					<xs:documentation>Study</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Gelijkstelling studie - leerperiode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LateSettlement" id="Code_11">
+				<xs:annotation>
+					<xs:documentation>Settlement after start date of pension</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Bijdragen geregulariseerd na de ingangsdatum van het pensioen</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ContinuedContribution-1" id="Code_12">
+				<xs:annotation>
+					<xs:documentation>Contribution after age 65 - before 1981</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Bijdrage na normale pensioenleeftijd periode (1976-1980)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ContinuedContribution-2" id="Code_13">
+				<xs:annotation>
+					<xs:documentation>Contribution after age 65 - after 1984</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Bijdragen hoofdbezigh. na normale pensioenleeftijd, boven min.drempel (vanaf 01/07/84)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MaxiHelperContribution" id="Code_14">
+				<xs:annotation>
+					<xs:documentation>Contribution for helper spouse - maxi</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Bijdragen als meewerkende echtgenoot  - maxi statuut</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UnpaidContribution" id="Code_20">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl-be">Onbetaalde bijdragen hoofdberoep</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BelowMinLevelContribution" id="Code_21">
+				<xs:annotation>
+					<xs:documentation>Contribution under min level</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Bijdragen bijberoep, berekend op bedrag kleiner dan minimumdrempel voor hoofdberoep</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ExpiredContribution" id="Code_22">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl-be">Verjaarde bijdragen</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UnrecoverableContribution" id="Code_23">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl-be">Oninvorderbare bijdragen</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ContributionExemption-1" id="Code_24">
+				<xs:annotation>
+					<xs:documentation>Contribution exemption - 1</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Vrijstelling van bijdragen m.b.t. periodes vanaf 01/01/1981</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ContributionExemption-2" id="Code_25">
+				<xs:annotation>
+					<xs:documentation>Contribution exemption - 2</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Vrijstelling van bijdragen toepassing art.12 en 37</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NotRefundableContribution" id="Code_26">
+				<xs:annotation>
+					<xs:documentation>Contribution that is not refundable</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Onverschuldigde en niet terugbetaalbare bijdragen</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LowAdditionalPeriodType" id="Code_27">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl-be">Bijdragen voor een hoofdbezigheid na normale pensioenleeftijd, onder minimumdrempel</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NoContinuedContributionBefore1984" id="Code_28">
+				<xs:annotation>
+					<xs:documentation>No contribution after age 65 before 1984</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Geen bijdrage hoofdberoep: pensioenleeftijd voor 01/01/1984 en activiteit voortgezet</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BankruptcyInsurance" id="Code_29">
+				<xs:annotation>
+					<xs:documentation>Bankruptcy insurance from 1/7/1997</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Faillissementsverzekering vanaf  1/7/1997</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MiniHelperContribution" id="Code_30">
+				<xs:annotation>
+					<xs:documentation>Contribution for helper spouse - mini status</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Bijdragen als meewerkende echtgenoot - mini statuut</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PersonUniqueIDType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NN" id="NNNr"/>
+			<xs:enumeration value="BIS" id="BISNr"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="PersonIdentificationStruct">
+		<xs:annotation>
+			<xs:documentation>Data identifying a person</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LastName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Last name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>First name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SSINType" type="PersonUniqueIDType">
+				<xs:annotation>
+					<xs:documentation>Type of identification number in SSIN field</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SSIN" type="SSINType">
+				<xs:annotation>
+					<xs:documentation>Social Security Identification Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BirthDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date of birth</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="IncomeEurType">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2" fixed="true"/>
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="YearType">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:minInclusive value="1900"/>
+			<xs:maxInclusive value="2080"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="QuarterType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Q1"/>
+			<xs:enumeration value="Q2"/>
+			<xs:enumeration value="Q3"/>
+			<xs:enumeration value="Q4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="UncondPenStruct">
+		<xs:annotation>
+			<xs:documentation>Unconditional pension</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Amount" type="IncomeEurType">
+				<xs:annotation>
+					<xs:documentation>Amount paid for unconditional pension</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayBeginDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>First payment date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayEndDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Last payment date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PeriodDefinitionStruct" block="#all">
+		<xs:sequence>
+			<xs:element name="BeginYear" type="YearType"/>
+			<xs:element name="BeginQuarter" type="QuarterType" minOccurs="0"/>
+			<xs:element name="EndYear" type="YearType"/>
+			<xs:element name="EndQuarter" type="QuarterType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="QuarterDetailGroup">
+		<xs:sequence>
+			<xs:element name="PeriodKind" type="PeriodKindType"/>
+			<xs:element name="Income1" type="IncomeEurType" minOccurs="0"/>
+			<xs:element name="Income2" type="IncomeEurType" minOccurs="0"/>
+			<xs:element name="CumulatedIncome" type="IncomeEurType" minOccurs="0"/>
+			<xs:element name="TemporaryInd" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="ReferenceYear" type="YearType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="QuarterFullDetailGroup">
+		<xs:sequence>
+			<xs:group ref="QuarterDetailGroup"/>
+			<xs:element name="LatePaymentDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="FPSControlInd" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="CareerDetailStruct">
+		<xs:complexContent>
+			<xs:extension base="PeriodDefinitionStruct">
+				<xs:sequence>
+					<xs:group ref="QuarterFullDetailGroup"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PersonQuarterStruct">
+		<xs:group ref="QuarterFullDetailGroup"/>
+		<xs:attribute name="CreationTime" type="xs:dateTime" use="required"/>
+		<xs:attribute name="SSIN" type="SSINType" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="IndividualRightsStruct">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Indivudual rights</xs:documentation>
+			<xs:documentation xml:lang="fr">Droits individuels</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CreationTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Date and time of data creation at the SIF</xs:documentation>
+					<xs:documentation xml:lang="fr">Date et heure de création des données par la caisse</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BeginValidityDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Data validity begin date</xs:documentation>
+					<xs:documentation xml:lang="fr">Date à partir de laquelle les données sont valides</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonIdentification" type="PersonIdentificationStruct">
+				<xs:annotation>
+					<xs:documentation>Identification of person whom career details are communicated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonNewIdentification" type="PersonIdentificationStruct" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>New identification of person whom career details are communicated, only transmitted by SIF on refresh response if person identification has changed</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CareerDetail" type="CareerDetailStruct" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Career information: 1 per period</xs:documentation>
+					<xs:documentation xml:lang="fr">Détails de carrière: 1 par période</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UncondPen" type="UncondPenStruct" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Unconditional pension paid to the person</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReportDataStruct">
+		<xs:sequence>
+			<xs:element name="GenerationTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Time when report was generated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReturnCode" type="BulkLoadReturnCodeType">
+				<xs:annotation>
+					<xs:documentation>Return code of functional operation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProcessedCareersNbr" type="xs:positiveInteger">
+				<xs:annotation>
+					<xs:documentation>Number of career records received and processed</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Exceptions" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>List of loading exceptions</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Exception" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Rejected careers</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ReasonCode" type="NisseLoadExceptionReasonCodeType">
+										<xs:annotation>
+											<xs:documentation>Career loading exception reason code</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="PersonIdentification" type="PersonIdentificationStruct">
+										<xs:annotation>
+											<xs:documentation>Identification of person for which exception applies</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="PersonNewIdentification" type="PersonIdentificationStruct" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Identification of person for which exception applies</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="IsLoaded" type="xs:boolean" use="required">
+									<xs:annotation>
+										<xs:documentation>Indicates if career was loaded all the same</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="Severity" type="ExceptionSeverityType" use="required">
+									<xs:annotation>
+										<xs:documentation>Indicates if exception is an error or a warning</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

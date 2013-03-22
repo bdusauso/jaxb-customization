@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="Loopbaan_V1" targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1" xmlns:tns="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1" xmlns:hlp="http://www.rsvz-inasti.fgov.be/schemas/WS/Helper/V2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:documentation>Baseline: 1.4.1</wsdl:documentation>
+	<wsdl:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1" location="Loopbaan_V1.wsdl"/>
+	<wsdl:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Helper/V2" location="../Helper_V2.wsdl"/>
+	<wsdl:types>
+		<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1" xmlns:meta="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" xmlns:cd="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/B2BExchanges/V1" xmlns:ct="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/CommonTypes/V1" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1">
+			<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" schemaLocation="../schema/MetaInfo/MetaInfo_V5.xsd"/>
+			<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/B2BExchanges/V1" schemaLocation="../schema/Loopbaan/B2BExchanges_V1.xsd"/>
+			<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/CommonTypes/V1" schemaLocation="../schema/Loopbaan/CommonTypes_V1.xsd"/>
+			<xs:element name="AcknowledgeQuarterlyUpload">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="FluxDescriptor" type="meta:FluxDescriptorStruct"/>
+						<xs:element name="UploadAcknowledgementData" type="cd:BulkUploadAcknowledgmentStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AcknowledgeQuarterlyUploadResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AcknowledgeCareersUpload">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="FluxDescriptor" type="meta:FluxDescriptorStruct"/>
+						<xs:element name="UploadAcknowledgementData" type="cd:BulkUploadAcknowledgmentStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AcknowledgeCareersUploadResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ReportQuarterlyUpload">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="FluxDescriptor" type="meta:FluxDescriptorStruct"/>
+						<xs:element name="ReportData" type="ct:ReportDataStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ReportQuarterlyUploadResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ReportCareersUpload">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="FluxDescriptor" type="meta:FluxDescriptorStruct"/>
+						<xs:element name="ReportData" type="ct:ReportDataStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ReportCareersUploadResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ReportCareerUpload">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="FluxDescriptor" type="meta:FluxDescriptorStruct"/>
+						<xs:element name="ReportData" type="ct:ReportDataStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ReportCareerUploadResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RequestRefreshCareer">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="FluxDescriptor" type="meta:FluxDescriptorStruct"/>
+						<xs:element name="CareerRefreshRequestData" type="cd:CareerRefreshRequestDataStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RequestRefreshCareerResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="AcknowledgeQuarterlyUpload">
+		<wsdl:part element="tns:AcknowledgeQuarterlyUpload" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="AcknowledgeQuarterlyUploadResponse">
+		<wsdl:part element="tns:AcknowledgeQuarterlyUploadResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="AcknowledgeCareersUpload">
+		<wsdl:part element="tns:AcknowledgeCareersUpload" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="AcknowledgeCareersUploadResponse">
+		<wsdl:part element="tns:AcknowledgeCareersUploadResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="ReportQuarterlyUpload">
+		<wsdl:part element="tns:ReportQuarterlyUpload" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="ReportQuarterlyUploadResponse">
+		<wsdl:part element="tns:ReportQuarterlyUploadResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="ReportCareersUpload">
+		<wsdl:part element="tns:ReportCareersUpload" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="ReportCareersUploadResponse">
+		<wsdl:part element="tns:ReportCareersUploadResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="ReportCareerUpload">
+		<wsdl:part element="tns:ReportCareerUpload" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="ReportCareerUploadResponse">
+		<wsdl:part element="tns:ReportCareerUploadResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="RequestRefreshCareer">
+		<wsdl:part element="tns:RequestRefreshCareer" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="RequestRefreshCareerResponse">
+		<wsdl:part element="tns:RequestRefreshCareerResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:portType name="SifLoopbaan">
+		<wsdl:operation name="AcknowledgeQuarterlyUpload">
+			<wsdl:input message="tns:AcknowledgeQuarterlyUpload"/>
+			<wsdl:output message="tns:AcknowledgeQuarterlyUploadResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="AcknowledgeCareersUpload">
+			<wsdl:input message="tns:AcknowledgeCareersUpload"/>
+			<wsdl:output message="tns:AcknowledgeCareersUploadResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReportQuarterlyUpload">
+			<wsdl:input message="tns:ReportQuarterlyUpload"/>
+			<wsdl:output message="tns:ReportQuarterlyUploadResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReportCareersUpload">
+			<wsdl:input message="tns:ReportCareersUpload"/>
+			<wsdl:output message="tns:ReportCareersUploadResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReportCareerUpload">
+			<wsdl:input message="tns:ReportCareerUpload"/>
+			<wsdl:output message="tns:ReportCareerUploadResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="SignalChange">
+			<wsdl:input message="tns:SignalChange"/>
+			<wsdl:output message="tns:SignalChangeResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="SignalFluxSyncFault">
+			<wsdl:input message="tns:SignalFluxSyncFault"/>
+			<wsdl:output message="tns:SignalFluxSyncFaultResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="RequestRefreshCareer">
+			<wsdl:input message="tns:RequestRefreshCareer"/>
+			<wsdl:output message="tns:RequestRefreshCareerResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SifLoopbaanSOAPBinding" type="tns:SifLoopbaan">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="AcknowledgeQuarterlyUpload">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/SifLoopbaan/AcknowledgeQuarterlyUpload"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="AcknowledgeCareersUpload">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/SifLoopbaan/AcknowledgeCareersUpload"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="ReportQuarterlyUpload">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/SifLoopbaan/ReportQuarterlyUpload"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="ReportCareersUpload">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/SifLoopbaan/ReportCareersUpload"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="ReportCareerUpload">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/SifLoopbaan/ReportCareerUpload"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="SignalChange">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/SifLoopbaan/SignalChange"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="SignalFluxSyncFault">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/SifLoopbaan/SignalFluxSyncFault"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="RequestRefreshCareer">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/SifLoopbaan/RequestRefreshCareer"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SifLoopbaanService">
+		<wsdl:port binding="tns:SifLoopbaanSOAPBinding" name="SifLoopbaanPort">
+			<soap:address location="http://your-server-dns/depends-on-your-tool"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

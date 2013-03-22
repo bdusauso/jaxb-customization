@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:tns="http://www.rsvz-inasti.fgov.be/schemas/WS/Helper/V2" xmlns:meta="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Helper_V2" targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Helper/V2">
+	<wsdl:documentation>Baseline: 1.0.0</wsdl:documentation>
+	<wsdl:types>
+		<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Helper/V2" version="1.0" xmlns:meta="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5">
+			<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" schemaLocation="schema/MetaInfo/MetaInfo_V5.xsd"/>
+			<xs:element name="AuthenticationFault" type="meta:AuthenticationFaultStruct"/>
+			<xs:element name="AuthorizationFault" type="meta:AuthorizationFaultStruct"/>
+			<xs:element name="SystemFault" type="meta:SystemFaultStruct"/>
+			<xs:element name="ValidationFault" type="meta:ValidationFaultStruct"/>
+			<xs:element name="FluxSyncFault" type="meta:FluxSyncFaultStruct"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="AuthenticationFault">
+		<wsdl:part name="detail" element="tns:AuthenticationFault"/>
+	</wsdl:message>
+	<wsdl:message name="AuthorizationFault">
+		<wsdl:part name="detail" element="tns:AuthorizationFault"/>
+	</wsdl:message>
+	<wsdl:message name="SystemFault">
+		<wsdl:part name="detail" element="tns:SystemFault"/>
+	</wsdl:message>
+	<wsdl:message name="ValidationFault">
+		<wsdl:part name="detail" element="tns:ValidationFault"/>
+	</wsdl:message>
+	<wsdl:message name="FluxSyncFault">
+		<wsdl:part name="detail" element="tns:FluxSyncFault"/>
+	</wsdl:message>
+</wsdl:definitions>

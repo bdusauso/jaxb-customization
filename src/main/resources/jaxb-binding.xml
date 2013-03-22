@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings version="2.0"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <jaxb:globalBindings localScoping="toplevel"
+                         collectionType="java.util.ArrayList"
+                         generateValueClass="true">
+        <jaxb:javaType name="java.util.Date"
+                      xmlType="xs:dateTime"
+                      parseMethod="org.apache.cxf.tools.common.DataTypeAdapter.parseDateTime"
+                      printMethod="org.apache.cxf.tools.common.DataTypeAdapter.printDateTime"/>
+        <jaxb:javaType name="java.util.Date"
+                      xmlType="xs:date"
+                      parseMethod="org.apache.cxf.tools.common.DataTypeAdapter.parseDateTime"
+                      printMethod="org.apache.cxf.tools.common.DataTypeAdapter.printDateTime"/>
+        <xjc:serializable uid="2"/>
+    </jaxb:globalBindings>
+
+    <jaxb:bindings schemaLocation="xml/schema/Loopbaan/B2BExchanges_V1.xsd"
+                   node="//xs:complexType[@name='Response74LSignalStruct']//xs:element[@name='Activities']/xs:complexType">
+            <jaxb:class name="ResponseActivities"/>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="xml/schema/Loopbaan/B2BExchanges_V1.xsd"
+                   node="//xs:complexType[@name='Response74LSignalStruct']//xs:element[@name='Activity']/xs:complexType">
+            <jaxb:class name="ResponseActivity"/>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="xml/schema/Loopbaan/B2BExchanges_V1.xsd"
+                   node="//xs:complexType[@name='Request74LSignalStruct']//xs:element[@name='Activities']/xs:complexType">
+            <jaxb:class name="RequestActivities"/>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="xml/schema/Loopbaan/B2BExchanges_V1.xsd"
+                   node="//xs:complexType[@name='Request74LSignalStruct']//xs:element[@name='Activity']/xs:complexType">
+            <jaxb:class name="RequestActivity"/>
+    </jaxb:bindings>
+</jaxb:bindings>

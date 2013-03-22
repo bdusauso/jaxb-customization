@@ -1,0 +1,529 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 (http://www.altova.com) by i (R.S.V.Z. (Inf-Helpdesk-7de)) -->
+<xs:schema xmlns="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/B2BExchanges/V1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b2b="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" xmlns:ct="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/CommonTypes/V1" targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/B2BExchanges/V1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Baseline: 1.4.1</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" schemaLocation="../MetaInfo/MetaInfo_V5.xsd"/>
+	<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/CommonTypes/V1" schemaLocation="./CommonTypes_V1.xsd"/>
+	<xs:simpleType name="ActivityKindType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NoActivity" id="Code_1">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">Aucune activité professionnelle - Cessation</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Geen activiteit - Stopzetting</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AuthorisedActivity" id="Code_2">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">Activité autorisée (règlementation générale)</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Toegelaten activiteit (algemene regeling)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Restricted2xActivity" id="Code_3">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">Activité professionnelle limitée au double de l'activité autorisée</xs:documentation>
+					<xs:documentation xml:lang="fr-be">Beroepsactiviteit beperkt tot het dubbele van de toegelaten activiteit</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SurvivalAuthActivity" id="Code_4">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">Activité autorisée pour les bénéficiaires d'une pension de survie (régime préférentiel)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AuthActivityWithChild" id="Code_5">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">Activité autorisée (règlementation générale) avec enfants à charge</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Toegelaten activiteit ( algemene regeling ) met kinderlast</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Child2xAuthActivity" id="Code_6">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">Activité professionnelle limitée au double de l'activité autorisée avec enfant(s) à charge</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Beroepsactiviteit beperkt tot het dubbele van de toegelaten activiteit met kinderlast</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SurvivalAuthActivityWithChild" id="Code_7">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">Activité autorisée pour les bénéficiaires d'une pension de survie (régime préférentiel) avec enfants à charge</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Toegelaten activiteit voor de begunstigden met een overlevingspensioen ( preferentiële regeling ) met kinderlast</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NoAuthActivity" id="Code_8">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">Activité non autorisée</xs:documentation>
+					<xs:documentation xml:lang="nl-be">Niet toegelaten activiteit</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PensionKindType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AllForWithdrawal">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">PRI + PINCR</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AllForSurvival">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">PSI + PINCS</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DivorcedSpouse">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">PCDI</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UnconditionalWithdrawal">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">PINCR</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UnconditionalSurvival">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">PINCS</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="InfoWithdrawal">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">Info PR</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="InfoSurvival">
+				<xs:annotation>
+					<xs:documentation xml:lang="fr-be">Info PS</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CareerRefreshReasonType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="InitialLoadError"/>
+			<xs:enumeration value="ReloadError"/>
+			<xs:enumeration value="PensionRequest"/>
+			<xs:enumeration value="EstimationRequest"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CareerRefreshRejectCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="InvalidReason"/>
+			<xs:enumeration value="UnknownPerson"/>
+			<xs:enumeration value="InvalidRequest"/>
+			<xs:enumeration value="NoAffiliation"/>
+			<xs:enumeration value="ProcessingDelayed"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CareerRequestReturnCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OK"/>
+			<xs:enumeration value="SSINChanged">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Warning, SSIN value changed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UnknownPerson">
+				<xs:annotation>
+					<xs:documentation>Person identification is not known</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="InvalidPeriod"/>
+			<xs:enumeration value="NoData">
+				<xs:annotation>
+					<xs:documentation>No data available for the given period</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NoAffiliation">
+				<xs:annotation>
+					<xs:documentation>No affiliation found for that person at the requesting SIF</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BulkUploadErrorCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="InvalidSequence">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">New block sequence within flux</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DuplicateData">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">Same Data received in two technically different chunks of the same sequence</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DuplicateIdentification">
+				<xs:annotation>
+					<xs:documentation xml:lang="en-us">Different Data received in two technically identical chunks of the same sequence</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CareerChangeReasonType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Requested"/>
+			<xs:enumeration value="ErrorCorrection"/>
+			<xs:enumeration value="Regularisation"/>
+			<xs:enumeration value="InitialLoad"/>
+			<xs:enumeration value="QuarterlyUpload"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SignalKindType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="S74L"/>
+			<xs:enumeration value="Estimation"/>
+			<xs:enumeration value="Computation"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CareerDBInfoStruct">
+		<xs:sequence>
+			<xs:element name="CreationDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Date when SIF communicated changes to RSVZ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastUpdateDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date when data were last updated by the SIF</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastUpdateUser" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>SIF user who last updated the data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PensionInfoStruct">
+		<xs:sequence>
+			<xs:element name="PensionKind" type="PensionKindType">
+				<xs:annotation>
+					<xs:documentation>Type of pension</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HeadSSINKind" type="ct:PersonUniqueIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Type of HeadSSIN number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HeadSSIN" type="ct:SSINType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>SSIN of person from which the pension rights are inherited</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PensionBeginDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Pension start date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PensionRequestSignalStruct">
+		<xs:sequence>
+			<xs:element name="PensionInfo" type="PensionInfoStruct" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Retirement and Survival/Divorced</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Request74LSignalStruct">
+		<xs:sequence>
+			<xs:element name="RequestID" type="b2b:UniqueId36Type">
+				<xs:annotation>
+					<xs:documentation>Reference provided by ECLIPZ with the purpose of matching response with request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PensionKind" type="PensionKindType"/>
+			<xs:element name="PensionBeginDate" type="xs:date"/>
+			<xs:element name="IsFamilyRateApplied" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>True if the pension is granted at family rate - false for single rate - absent if not applicable</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Activities">
+				<xs:annotation>
+					<xs:documentation>List of professional activities run by both the beneficiary and his/her spouse if applicable</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Activity" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="BeginDate" type="xs:date">
+										<xs:annotation>
+											<xs:documentation>Date activity began as known by RSVZ-INASTI</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="ActivityKind" type="ActivityKindType">
+										<xs:annotation>
+											<xs:documentation>Activity type known to RSVZ-INASTI</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="IsForSpouse" type="xs:boolean" use="optional" default="false">
+									<xs:annotation>
+										<xs:documentation>True if activty is for spouse</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SpouseIdentification" type="ct:PersonIdentificationStruct" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Present if family rate applied</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Response74LSignalStruct">
+		<xs:sequence>
+			<xs:element name="RequestID" type="b2b:UniqueId36Type">
+				<xs:annotation>
+					<xs:documentation>Reference provided in the Request74L and used to match response and request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Activities">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Activity" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="BeginDate" type="xs:date">
+										<xs:annotation>
+											<xs:documentation>Can differ from the one communicated in the signal</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="EndDate" type="xs:date" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Date activity ended</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="ActivityKind" type="ActivityKindType">
+										<xs:annotation>
+											<xs:documentation>Type of activity - can be different from the one communicated in request</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="EndAgreementReason" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Description on how the ending was detected and agreed</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="IsForSpouse" type="xs:boolean" use="optional" default="false">
+									<xs:annotation>
+										<xs:documentation>True if activity is for spouse</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BulkUploadAcknowledgmentStruct">
+		<xs:sequence>
+			<xs:element name="GenerationTime" type="xs:dateTime"/>
+			<xs:element name="BlockSequenceId" type="b2b:UniqueId36Type"/>
+			<xs:element name="ReceivedChunksNbr" type="xs:positiveInteger"/>
+			<xs:element name="ReceivedCareersNbr" type="xs:positiveInteger"/>
+			<xs:element name="ReturnCode" type="ct:BulkLoadReturnCodeType"/>
+			<xs:element name="Rejected" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="BlockSequenceNr" type="xs:positiveInteger"/>
+						<xs:element name="ErrorCode" type="BulkUploadErrorCodeType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Upload operations specific types -->
+	<xs:complexType name="UploadCareersDataStruct">
+		<xs:sequence>
+			<xs:element name="ChangeReason" type="CareerChangeReasonType">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Reason why this upload is transmitted</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Careers">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="IndividualRights" type="ct:IndividualRightsStruct" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation xml:lang="en">Pension rights for one individual</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UploadCareerDataStruct">
+		<xs:sequence>
+			<xs:element name="ChangeReason" type="CareerChangeReasonType">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Reason why this upload is transmitted</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:annotation>
+					<xs:documentation>Either refresh error or normal upload</xs:documentation>
+				</xs:annotation>
+				<xs:element name="IndividualRights" type="ct:IndividualRightsStruct">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Pension rights for one individual</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="RefreshRejectReason" type="CareerRefreshRejectCodeType">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">If refresh, reason why refresh request is rejected</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CareerRefreshRequestDataStruct">
+		<xs:sequence>
+			<xs:element name="ReasonCode" type="CareerRefreshReasonType"/>
+			<xs:element name="SSINType" type="ct:PersonUniqueIDType"/>
+			<xs:element name="SSIN" type="ct:SSINType"/>
+			<xs:element name="DeadlineDate" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Signal operations specific types -->
+	<xs:complexType name="ChangeDataStruct">
+		<xs:sequence>
+			<xs:element name="SignalKind" type="SignalKindType">
+				<xs:annotation>
+					<xs:documentation>Kind of signal</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BeneficiaryPerson" type="ct:PersonIdentificationStruct">
+				<xs:annotation>
+					<xs:documentation>Person who is requesting the pension rights</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CareerDBInfo" type="CareerDBInfoStruct" minOccurs="0"/>
+			<xs:choice minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Depending on signal type</xs:documentation>
+				</xs:annotation>
+				<xs:element name="PensionRequest" type="PensionRequestSignalStruct">
+					<xs:annotation>
+						<xs:documentation>Pension request signal</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Request74L" type="Request74LSignalStruct">
+					<xs:annotation>
+						<xs:documentation>"74L" notification from ECLIPZ to SIF</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Response74L" type="Response74LSignalStruct">
+					<xs:annotation>
+						<xs:documentation>"74L" response from SIF to ECLIPZ</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- quarterly upload specific types -->
+	<xs:complexType name="QuarterDataStruct" mixed="false">
+		<xs:sequence>
+			<xs:element name="PersonQuarter" type="ct:PersonQuarterStruct" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="Year" type="ct:YearType" use="required"/>
+		<xs:attribute name="Quarter" type="ct:QuarterType" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="AcknowledgeQuarterlyUploadStruct" mixed="false">
+		<xs:sequence>
+			<xs:element name="AcknowledgeQuarterlyUploadData" type="ct:ReportDataStruct"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReportQuarterlyUpload" mixed="false">
+		<xs:sequence>
+			<xs:element name="ReportData" type="ct:ReportDataStruct"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Career download specific types -->
+	<xs:complexType name="RequestCareerDataStruct" mixed="false">
+		<xs:sequence>
+			<xs:element name="ReadCriteria">
+				<xs:annotation>
+					<xs:documentation>Criteria provided to select career data</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="HistoryInd" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="en">Indicates whether the career update history is required in the response or not</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="PersonIdentification" type="ct:PersonIdentificationStruct">
+							<xs:annotation>
+								<xs:documentation>Identification of career holder </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Period" type="ct:PeriodDefinitionStruct" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="en">Filter result to this period</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CareerDataStruct" mixed="false">
+		<xs:sequence>
+			<xs:element name="ReturnCode" type="CareerRequestReturnCodeType">
+				<xs:annotation>
+					<xs:documentation>Downoad request return code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Requested career info for the requesting SIF, if any</xs:documentation>
+				</xs:annotation>
+				<xs:element name="CurrentCareer" type="ct:IndividualRightsStruct" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Current career data filtered with the provided criteria and for the requesting SIF</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CareerHistory" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>History of all career changes within the requested period and for the requesting SIF</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:annotation>
+							<xs:documentation xml:lang="en">History of career change requests received by the PEN career db application</xs:documentation>
+						</xs:annotation>
+						<xs:sequence>
+							<xs:element name="ChangeReason" type="CareerChangeReasonType">
+								<xs:annotation>
+									<xs:documentation xml:lang="en">Reason provided by the SIF to the following update</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="TimeReceived" type="xs:dateTime"/>
+							<xs:element name="TimeReplaced" type="xs:dateTime" minOccurs="0"/>
+							<xs:element name="ChangeExceptionReason" type="ct:NisseLoadExceptionReasonCodeType" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation xml:lang="en">Update load return code when processed by the PEN career db application</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="IndividualRights" type="ct:IndividualRightsStruct" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation xml:lang="en">History data filtered with the provided criteria - absent if IsLoaded = false</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="IsLoaded" type="xs:boolean" use="optional" default="true"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

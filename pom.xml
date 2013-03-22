@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>be.drunkcoders.jaxb</groupId>
+    <artifactId>jaxb-customization</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>JAXB::Customization</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cxf.version>2.7.3</cxf.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-tools-common</artifactId>
+            <version>2.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http-jetty</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <!-- Wsdl to Java -->
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>${cxf.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <configuration>
+                            <defaultOptions>
+                                <bindingFiles>
+                                    <bindingFile>${basedir}/src/main/resources/jaxws-binding.xml</bindingFile>
+                                </bindingFiles>
+                                <extraargs>
+                                    <extraarg>-p</extraarg>
+                                    <extraarg>
+                                        http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/B2BExchanges/V1=be.codinsanity.jaxb.inasti.b2bexchanges
+                                    </extraarg>
+                                    <extraarg>-p</extraarg>
+                                    <extraarg>
+                                        http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1=be.codinsanity.jaxb.inasti.loobpaan
+                                    </extraarg>
+                                    <extraarg>-p</extraarg>
+                                    <extraarg>
+                                        http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5=be.codinsanity.jaxb.inasti.metainfo
+                                    </extraarg>
+                                    <extraarg>-p</extraarg>
+                                    <extraarg>
+                                        http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/CommonTypes/V1=be.codinsanity.jaxb.inasti.commontype
+                                    </extraarg>
+                                    <extraarg>-p</extraarg>
+                                    <extraarg>
+                                        http://www.rsvz-inasti.fgov.be/schemas/WS/Helper/V2=be.codinsanity.jaxb.inasti.helper
+                                    </extraarg>
+                                    <extraarg>-p</extraarg>
+                                    <extraarg>
+                                        http://www.w3.org/2001/XMLSchema=org.w3.xmlschema
+                                    </extraarg>
+                                    <extraarg>-b</extraarg>
+                                    <extraarg>${basedir}/src/main/resources/jaxb-binding.xml</extraarg>
+                                </extraargs>
+                            </defaultOptions>
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>src/main/resources/xml/Loopbaan/NisseLoopbaan_V1.wsdl</wsdl>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

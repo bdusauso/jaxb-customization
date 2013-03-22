@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="Loopbaan_V1" targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1" xmlns:tns="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1" xmlns:hlp="http://www.rsvz-inasti.fgov.be/schemas/WS/Helper/V2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:documentation>Baseline: 1.4.1</wsdl:documentation>
+	<wsdl:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1" location="Loopbaan_V1.wsdl"/>
+	<wsdl:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Helper/V2" location="../Helper_V2.wsdl"/>
+	<wsdl:types>
+		<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1" xmlns:meta="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" xmlns:cd="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/B2BExchanges/V1" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1">
+			<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" schemaLocation="../schema/MetaInfo/MetaInfo_V5.xsd"/>
+			<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/B2BExchanges/V1" schemaLocation="../schema/Loopbaan/B2BExchanges_V1.xsd"/>
+			<xs:element name="RequestCareerInfo">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="RequestCareerData" type="cd:RequestCareerDataStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RequestCareerInfoResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="CareerData" type="cd:CareerDataStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UploadCareersQuarter">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="FluxDescriptor" type="meta:FluxDescriptorStruct"/>
+						<xs:element name="Block" type="meta:BlockStruct"/>
+						<xs:element name="UploadQuarterData" type="cd:QuarterDataStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UploadCareersQuarterResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UploadFullCareers">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="FluxDescriptor" type="meta:FluxDescriptorStruct"/>
+						<xs:element name="Block" type="meta:BlockStruct"/>
+						<xs:element name="UploadCareersData" type="cd:UploadCareersDataStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UploadFullCareersResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UploadFullCareer">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="FluxDescriptor" type="meta:FluxDescriptorStruct"/>
+						<xs:element name="UploadCareerData" type="cd:UploadCareerDataStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UploadFullCareerResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="RequestCareerInfo">
+		<wsdl:part element="tns:RequestCareerInfo" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="RequestCareerInfoResponse">
+		<wsdl:part element="tns:RequestCareerInfoResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="UploadCareersQuarter">
+		<wsdl:part element="tns:UploadCareersQuarter" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="UploadCareersQuarterResponse">
+		<wsdl:part element="tns:UploadCareersQuarterResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="UploadFullCareers">
+		<wsdl:part element="tns:UploadFullCareers" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="UploadFullCareersResponse">
+		<wsdl:part element="tns:UploadFullCareersResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="UploadFullCareer">
+		<wsdl:part element="tns:UploadFullCareer" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="UploadFullCareerResponse">
+		<wsdl:part element="tns:UploadFullCareerResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:portType name="NisseLoopbaan">
+		<wsdl:operation name="RequestCareerInfo">
+			<wsdl:input message="tns:RequestCareerInfo"/>
+			<wsdl:output message="tns:RequestCareerInfoResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="SignalChange">
+			<wsdl:input message="tns:SignalChange"/>
+			<wsdl:output message="tns:SignalChangeResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="SignalFluxSyncFault">
+			<wsdl:input message="tns:SignalFluxSyncFault"/>
+			<wsdl:output message="tns:SignalFluxSyncFaultResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="UploadCareersQuarter">
+			<wsdl:input message="tns:UploadCareersQuarter"/>
+			<wsdl:output message="tns:UploadCareersQuarterResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="UploadFullCareers">
+			<wsdl:input message="tns:UploadFullCareers"/>
+			<wsdl:output message="tns:UploadFullCareersResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="UploadFullCareer">
+			<wsdl:input message="tns:UploadFullCareer"/>
+			<wsdl:output message="tns:UploadFullCareerResponse"/>
+			<wsdl:fault name="AuthenticationFault" message="hlp:AuthenticationFault"/>
+			<wsdl:fault name="AuthorizationFault" message="hlp:AuthorizationFault"/>
+			<wsdl:fault name="SystemFault" message="hlp:SystemFault"/>
+			<wsdl:fault name="ValidationFault" message="hlp:ValidationFault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="NisseLoopbaanSOAPBinding" type="tns:NisseLoopbaan">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="RequestCareerInfo">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/NisseLoopbaan/RequestCareerInfo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="SignalChange">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/Nisse/SignalChange"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="SignalFluxSyncFault">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/Nisse/SignalFluxSyncFault"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="UploadCareersQuarter">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/NisseLoopbaan/UploadCareersQuarter"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="UploadFullCareers">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/NisseLoopbaan/UploadFullCareers"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="UploadFullCareer">
+			<soap:operation soapAction="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1/NisseLoopbaan/UploadFullCareer"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AuthenticationFault">
+				<soap:fault name="AuthenticationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="AuthorizationFault">
+				<soap:fault name="AuthorizationFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="SystemFault">
+				<soap:fault name="SystemFault" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="ValidationFault">
+				<soap:fault name="ValidationFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="NisseLoopbaanService">
+		<wsdl:port binding="tns:NisseLoopbaanSOAPBinding" name="NisseLoopbaanPort">
+			<soap:address location="http://your-server-dns/depends-on-your-tool"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

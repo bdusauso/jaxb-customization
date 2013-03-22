@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="Loopbaan_V1" targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1" xmlns:tns="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:documentation>Baseline: 1.4.1</wsdl:documentation>
+	<wsdl:types>
+		<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.rsvz-inasti.fgov.be/schemas/WS/Loopbaan/V1" xmlns:meta="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" xmlns:cd="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/B2BExchanges/V1" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1">
+			<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/MetaInfo/V5" schemaLocation="../schema/MetaInfo/MetaInfo_V5.xsd"/>
+			<xs:import namespace="http://www.rsvz-inasti.fgov.be/schemas/WS/schema/Loopbaan/B2BExchanges/V1" schemaLocation="../schema/Loopbaan/B2BExchanges_V1.xsd"/>
+			<xs:element name="SignalChange">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="ChangeData" type="cd:ChangeDataStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SignalChangeResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SignalFluxSyncFault">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+						<xs:element name="FluxDescriptor" type="meta:FluxDescriptorStruct"/>
+						<xs:element name="FluxSyncFault" type="meta:FluxSyncFaultStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SignalFluxSyncFaultResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ApplHeader" type="meta:ApplHeaderStruct"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="SignalChange">
+		<wsdl:part element="tns:SignalChange" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="SignalChangeResponse">
+		<wsdl:part element="tns:SignalChangeResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="SignalFluxSyncFault">
+		<wsdl:part element="tns:SignalFluxSyncFault" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="SignalFluxSyncFaultResponse">
+		<wsdl:part element="tns:SignalFluxSyncFaultResponse" name="parameters"/>
+	</wsdl:message>
+</wsdl:definitions>
